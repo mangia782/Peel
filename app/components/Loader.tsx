@@ -1,6 +1,8 @@
 'use client';
 
-import { PuffLoader } from "react-spinners";
+import Image from "next/image";
+import peelLogoGIF from '/images/LoadingPeelLogo.gif';
+
 
 const Loader = () => {
   return ( 
@@ -13,9 +15,11 @@ const Loader = () => {
       items-center 
     "
     >
-      <PuffLoader
-        size={100}
-        color="red"
+      <Image
+        src="/images/LoadingPeelLogo.gif"
+        height="300" 
+        width="300" 
+        alt="Loading . . ." 
       />
     </div>
    );

@@ -112,7 +112,7 @@ const Search = () => {
           <div 
             className="
               p-2 
-              bg-rose-500 
+              bg-[#f7a92b]
               rounded-full 
               text-white
             "
@@ -126,3 +126,5 @@ const Search = () => {
 }
  
 export default Search;
+
+// #f7a92b //
