@@ -31,9 +31,6 @@ const SearchModal = () => {
   const [step, setStep] = useState(STEPS.LOCATION);
 
   const [location, setLocation] = useState<CountrySelectValue>();
-  const [guestCount, setGuestCount] = useState(1);
-  const [roomCount, setRoomCount] = useState(1);
-  const [bathroomCount, setBathroomCount] = useState(1);
   const [dateRange, setDateRange] = useState<Range>({
     startDate: new Date(),
     endDate: new Date(),
@@ -66,9 +63,6 @@ const SearchModal = () => {
     const updatedQuery: any = {
       ...currentQuery,
       locationValue: location?.value,
-      guestCount,
-      roomCount,
-      bathroomCount
     };
 
     if (dateRange.startDate) {
@@ -93,11 +87,7 @@ const SearchModal = () => {
     searchModal, 
     location, 
     router, 
-    guestCount, 
-    roomCount,
-    dateRange,
     onNext,
-    bathroomCount,
     params
   ]);
 
@@ -120,8 +110,8 @@ const SearchModal = () => {
   let bodyContent = (
     <div className="flex flex-col gap-8">
       <Heading
-        title="Where do you wanna go?"
-        subtitle="Find the perfect location!"
+        title="What are you looking for?"
+        subtitle="Find the perfect fruit!"
       />
       <CountrySelect 
         value={location} 
@@ -154,28 +144,6 @@ const SearchModal = () => {
         <Heading
           title="More information"
           subtitle="Find your perfect place!"
-        />
-        <Counter 
-          onChange={(value) => setGuestCount(value)}
-          value={guestCount}
-          title="Guests" 
-          subtitle="How many guests are coming?"
-        />
-        <hr />
-        <Counter 
-          onChange={(value) => setRoomCount(value)}
-          value={roomCount}
-          title="Rooms" 
-          subtitle="How many rooms do you need?"
-        />        
-        <hr />
-        <Counter 
-          onChange={(value) => {
-            setBathroomCount(value)
-          }}
-          value={bathroomCount}
-          title="Bathrooms"
-          subtitle="How many bahtrooms do you need?"
         />
       </div>
     )

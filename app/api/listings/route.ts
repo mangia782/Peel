@@ -18,11 +18,9 @@ export async function POST(
     description,
     imageSrc,
     category,
-    roomCount,
-    bathroomCount,
-    guestCount,
     location,
     price,
+    unit,
    } = body;
 
   Object.keys(body).forEach((value: any) => {
@@ -37,12 +35,10 @@ export async function POST(
       description,
       imageSrc,
       category,
-      roomCount,
-      bathroomCount,
-      guestCount,
       locationValue: location.value,
       price: parseInt(price, 10),
-      userId: currentUser.id
+      unit,
+      userId: currentUser.id,
     }
   });
 
