@@ -16,6 +16,9 @@ const Map = dynamic(() => import('../Map'), {
 interface ListingInfoProps {
   user: SafeUser,
   description: string;
+  guestCount: number;
+  roomCount: number;
+  bathroomCount: number;
   category: {
     icon: IconType,
     label: string;
@@ -27,6 +30,9 @@ interface ListingInfoProps {
 const ListingInfo: React.FC<ListingInfoProps> = ({
   user,
   description,
+  guestCount,
+  roomCount,
+  bathroomCount,
   category,
   locationValue,
 }) => {
@@ -47,7 +53,7 @@ const ListingInfo: React.FC<ListingInfoProps> = ({
             gap-2
           "
         >
-          <div>Uploaded by {user?.name}</div>
+          <div>Hosted by {user?.name}</div>
           <Avatar src={user?.image} />
         </div>
         <div className="
@@ -59,8 +65,18 @@ const ListingInfo: React.FC<ListingInfoProps> = ({
             text-neutral-500
           "
         >
+          <div>
+            {guestCount} guests
+          </div>
+          <div>
+            {roomCount} rooms
+          </div>
+          <div>
+            {bathroomCount} bathrooms
+          </div>
         </div>
       </div>
+      <hr />
       {category && (
         <ListingCategory
           icon={category.icon} 
