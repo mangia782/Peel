@@ -22,6 +22,8 @@ import ImageUpload from '../inputs/ImageUpload';
 import Input from '../inputs/Input';
 import Heading from '../Heading';
 
+import StarRating from '../StarRating';
+
 enum STEPS {
   CATEGORY = 0,
   DESCRIPTION = 1,
@@ -185,6 +187,7 @@ const RentModal = () => {
 
   if (step === STEPS.DESCRIPTION) {
     bodyContent = (
+      <>
       <div className="flex flex-col gap-8">
         <Heading
           title="How would you describe your fruit?"
@@ -192,13 +195,12 @@ const RentModal = () => {
         />
         <Input
           id="title"
-          label="Title"
+          label="Fruit Name"
           disabled={isLoading}
           register={register}
           errors={errors}
           required
         />
-        <hr />
         <Input
           id="description"
           label="Description"
@@ -207,7 +209,13 @@ const RentModal = () => {
           errors={errors}
           required
         />
+        <hr />
+        <Heading
+          title="Rate this fruit:"
+        />
+        <StarRating />
       </div>
+      </>
     )
   }
 
