@@ -3,19 +3,22 @@
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useCallback, useMemo } from "react";
+import { format } from 'date-fns';
 
 import useCountries from "@/app/hooks/useCountries";
 import { 
   SafeListing, 
+  SafeReservation, 
   SafeUser 
 } from "@/app/types";
 
 import HeartButton from "../HeartButton";
 import Button from "../Button";
-import { ta } from "date-fns/locale";
+import ClientOnly from "../ClientOnly";
 
 interface ListingCardProps {
   data: SafeListing;
+  reservation?: SafeReservation;
   onAction?: (id: string) => void;
   disabled?: boolean;
   actionLabel?: string;
@@ -25,6 +28,7 @@ interface ListingCardProps {
 
 const ListingCard: React.FC<ListingCardProps> = ({
   data,
+  reservation,
   onAction,
   disabled,
   actionLabel,
@@ -48,13 +52,23 @@ const ListingCard: React.FC<ListingCardProps> = ({
   }, [disabled, onAction, actionId]);
 
   const price = useMemo(() => {
+    if (reservation) {
+      return reservation.totalPrice;
+    }
+
     return data.price;
-  }, [data.price]);
+  }, [reservation, data.price]);
 
-  const title = useMemo(() => {
-    return data.title;
-  }, [data.title]);
+  const reservationDate = useMemo(() => {
+    if (!reservation) {
+      return null;
+    }
+  
+    const start = new Date(reservation.startDate);
+    const end = new Date(reservation.endDate);
 
+    return `${format(start, 'PP')} - ${format(end, 'PP')}`;
+  }, [reservation]);
 
   return (
     <div 
@@ -81,7 +95,7 @@ const ListingCard: React.FC<ListingCardProps> = ({
               transition
             "
             src={data.imageSrc}
-            alt="Fruit"
+            alt="Listing"
           />
           <div className="
             absolute
@@ -95,12 +109,18 @@ const ListingCard: React.FC<ListingCardProps> = ({
           </div>
         </div>
         <div className="font-semibold text-lg">
-          {title}
+          {location?.region}, {location?.label}
+        </div>
+        <div className="font-light text-neutral-500">
+          {reservationDate || data.category}
         </div>
         <div className="flex flex-row items-center gap-1">
           <div className="font-semibold">
             $ {price}
           </div>
+          {!reservation && (
+            <div className="font-light">night</div>
+          )}
         </div>
         {onAction && actionLabel && (
           <Button
