@@ -41,24 +41,6 @@ const ListingReservation: React.FC<
         <div className="text-2xl font-semibold">
           $ {price}
         </div>
-        <div className="font-light text-neutral-600">
-          night
-        </div>
-      </div>
-      <hr />
-      <Calendar
-        value={dateRange}
-        disabledDates={disabledDates}
-        onChange={(value) => 
-          onChangeDate(value.selection)}
-      />
-      <hr />
-      <div className="p-4">
-        <Button 
-          disabled={disabled} 
-          label="Reserve" 
-          onClick={onSubmit}
-        />
       </div>
       <hr />
       <div 
@@ -73,10 +55,10 @@ const ListingReservation: React.FC<
         "
       >
         <div>
-          Total
+          Rating
         </div>
         <div>
-          $ {totalPrice}
+          RATING PLACEHOLDER
         </div>
       </div>
     </div>
