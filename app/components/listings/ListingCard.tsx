@@ -39,6 +39,8 @@ const ListingCard: React.FC<ListingCardProps> = ({
   const { getByValue } = useCountries();
 
   const location = getByValue(data.locationValue);
+  const title = data.title;
+  const ratingValue = data.guestRooms;
 
   const handleCancel = useCallback(
     (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -51,13 +53,7 @@ const ListingCard: React.FC<ListingCardProps> = ({
     onAction?.(actionId)
   }, [disabled, onAction, actionId]);
 
-  const price = useMemo(() => {
-    if (reservation) {
-      return reservation.totalPrice;
-    }
-
-    return data.price;
-  }, [reservation, data.price]);
+  const price = data.price;
 
   const reservationDate = useMemo(() => {
     if (!reservation) {
@@ -109,14 +105,14 @@ const ListingCard: React.FC<ListingCardProps> = ({
           </div>
         </div>
         <div className="font-semibold text-lg">
-          {location?.region}, {location?.label}
+          {title}
         </div>
         <div className="flex flex-col items-left gap-1">
           <div className="font-semibold">
             $ {price}
           </div>
           <div className="font-semibold">
-            RATING ??
+            Rated {ratingValue}/5
           </div>
         </div>
         {onAction && actionLabel && (

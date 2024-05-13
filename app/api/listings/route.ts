@@ -20,6 +20,7 @@ export async function POST(
     category,
     location,
     price,
+    guestRooms,
    } = body;
 
   Object.keys(body).forEach((value: any) => {
@@ -36,6 +37,7 @@ export async function POST(
       category,
       locationValue: location.value,
       price: parseInt(price, 10),
+      guestRooms,
       userId: currentUser.id
     }
   });

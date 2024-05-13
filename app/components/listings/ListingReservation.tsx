@@ -2,6 +2,8 @@
 
 import { Range } from "react-date-range";
 
+import Rating from "../Rating";
+
 import Button from "../Button";
 import Calendar from "../inputs/Calendar";
 

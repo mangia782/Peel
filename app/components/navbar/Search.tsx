@@ -16,7 +16,7 @@ const Search = () => {
   const  locationValue = params?.get('locationValue'); 
   const  startDate = params?.get('startDate');
   const  endDate = params?.get('endDate');
-  const  guestCount = params?.get('guestCount');
+  const  guestRooms = params?.get('guestRooms');
 
   const locationLabel = useMemo(() => {
     if (locationValue) {
@@ -43,12 +43,12 @@ const Search = () => {
   }, [startDate, endDate]);
 
   const guestLabel = useMemo(() => {
-    if (guestCount) {
-      return `${guestCount} Guests`;
+    if (guestRooms) {
+      return `${guestRooms} Guests`;
     }
 
     return 'Add Guests';
-  }, [guestCount]);
+  }, [guestRooms]);
 
   return ( 
     <div
