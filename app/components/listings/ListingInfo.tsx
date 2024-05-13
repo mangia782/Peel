@@ -47,7 +47,7 @@ const ListingInfo: React.FC<ListingInfoProps> = ({
             gap-2
           "
         >
-          <div>Uploaded by {user?.name}</div>
+          <div>Hosted by {user?.name}</div>
           <Avatar src={user?.image} />
         </div>
         <div className="
@@ -61,6 +61,7 @@ const ListingInfo: React.FC<ListingInfoProps> = ({
         >
         </div>
       </div>
+      <hr />
       {category && (
         <ListingCategory
           icon={category.icon} 
@@ -74,9 +75,7 @@ const ListingInfo: React.FC<ListingInfoProps> = ({
         {description}
       </div>
       <hr />
-      <div>
-        MAP PLACEHOLDER
-      </div>
+      <Map center={coordinates} />
     </div>
    );
 }
