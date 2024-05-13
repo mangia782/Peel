@@ -20,9 +20,39 @@ const Search = () => {
       return getByValue(locationValue as string)?.label;
     }
 
+<<<<<<< HEAD
     return 'search for a store or fruit';
   }, [locationValue, getByValue]);
 
+=======
+    return 'Anywhere';
+  }, [locationValue, getByValue]);
+
+  const durationLabel = useMemo(() => {
+    if (startDate && endDate) {
+      const start = new Date(startDate as string);
+      const end = new Date(endDate as string);
+      let diff = differenceInDays(end, start);
+
+      if (diff === 0) {
+        diff = 1;
+      }
+
+      return `${diff} Days`;
+    }
+
+    return 'Any Week'
+  }, [startDate, endDate]);
+
+  const guestLabel = useMemo(() => {
+    if (guestCount) {
+      return `${guestCount} Guests`;
+    }
+
+    return 'Add Guests';
+  }, [guestCount]);
+
+>>>>>>> parent of 446228b (	modified:   app/components/navbar/Categories.tsx)
   return ( 
     <div
       onClick={searchModal.onOpen}
