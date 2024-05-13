@@ -3,55 +3,42 @@
 import qs from 'query-string';
 import dynamic from 'next/dynamic'
 import { useCallback, useMemo, useState } from "react";
+import { Range } from 'react-date-range';
+import { formatISO } from 'date-fns';
 import { useRouter, useSearchParams } from 'next/navigation';
 
 import useSearchModal from "@/app/hooks/useSearchModal";
 
 import Modal from "./Modal";
+import Calendar from "../inputs/Calendar";
+import Counter from "../inputs/Counter";
 import CountrySelect, { 
   CountrySelectValue
 } from "../inputs/CountrySelect";
-
-import { 
-  FieldValues, 
-  useForm
-} from 'react-hook-form';
-
-
-import Input from '../inputs/Input';
 import Heading from '../Heading';
 
 enum STEPS {
   LOCATION = 0,
-  INFO = 1,
+  DATE = 1,
+  INFO = 2,
 }
 
 const SearchModal = () => {
   const router = useRouter();
   const searchModal = useSearchModal();
-
   const params = useSearchParams();
 
   const [step, setStep] = useState(STEPS.LOCATION);
 
-  const { 
-    register, 
-    formState: {
-      errors,
-    },
-  } = useForm<FieldValues>({
-    defaultValues: {
-      category: '',
-      location: null,
-      imageSrc: '',
-      title: '',
-      description: '',
-    }
-  });
-
-
   const [location, setLocation] = useState<CountrySelectValue>();
-
+  const [guestCount, setGuestCount] = useState(1);
+  const [roomCount, setRoomCount] = useState(1);
+  const [bathroomCount, setBathroomCount] = useState(1);
+  const [dateRange, setDateRange] = useState<Range>({
+    startDate: new Date(),
+    endDate: new Date(),
+    key: 'selection'
+  });
 
   const Map = useMemo(() => dynamic(() => import('../Map'), { 
     ssr: false 
@@ -79,7 +66,18 @@ const SearchModal = () => {
     const updatedQuery: any = {
       ...currentQuery,
       locationValue: location?.value,
+      guestCount,
+      roomCount,
+      bathroomCount
     };
+
+    if (dateRange.startDate) {
+      updatedQuery.startDate = formatISO(dateRange.startDate);
+    }
+
+    if (dateRange.endDate) {
+      updatedQuery.endDate = formatISO(dateRange.endDate);
+    }
 
     const url = qs.stringifyUrl({
       url: '/',
@@ -95,7 +93,11 @@ const SearchModal = () => {
     searchModal, 
     location, 
     router, 
+    guestCount, 
+    roomCount,
+    dateRange,
     onNext,
+    bathroomCount,
     params
   ]);
 
@@ -118,8 +120,8 @@ const SearchModal = () => {
   let bodyContent = (
     <div className="flex flex-col gap-8">
       <Heading
-        title="Which store do you want to find?"
-        subtitle="Find the perfect fruit-buying location!"
+        title="Where do you wanna go?"
+        subtitle="Find the perfect location!"
       />
       <CountrySelect 
         value={location} 
@@ -131,19 +133,49 @@ const SearchModal = () => {
     </div>
   )
 
+  if (step === STEPS.DATE) {
+    bodyContent = (
+      <div className="flex flex-col gap-8">
+        <Heading
+          title="When do you plan to go?"
+          subtitle="Make sure everyone is free!"
+        />
+        <Calendar
+          onChange={(value) => setDateRange(value.selection)}
+          value={dateRange}
+        />
+      </div>
+    )
+  }
+
   if (step === STEPS.INFO) {
     bodyContent = (
       <div className="flex flex-col gap-8">
         <Heading
-          title="Search by fruit instead"
-          subtitle="Find your perfect fruit!"
+          title="More information"
+          subtitle="Find your perfect place!"
         />
-        <Input
-          id="fruit-type"
-          label="enter a fruit"
-          register={register}
-          errors={errors}
-          required
+        <Counter 
+          onChange={(value) => setGuestCount(value)}
+          value={guestCount}
+          title="Guests" 
+          subtitle="How many guests are coming?"
+        />
+        <hr />
+        <Counter 
+          onChange={(value) => setRoomCount(value)}
+          value={roomCount}
+          title="Rooms" 
+          subtitle="How many rooms do you need?"
+        />        
+        <hr />
+        <Counter 
+          onChange={(value) => {
+            setBathroomCount(value)
+          }}
+          value={bathroomCount}
+          title="Bathrooms"
+          subtitle="How many bahtrooms do you need?"
         />
       </div>
     )
