@@ -13,7 +13,7 @@ import ClientOnly from './components/ClientOnly';
 import getCurrentUser from './actions/getCurrentUser';
 
 export const metadata = {
-  title: 'Peel',
+  title: 'Peel - The Fruit App',
   description: 'Fruit Grindr',
 }
 
