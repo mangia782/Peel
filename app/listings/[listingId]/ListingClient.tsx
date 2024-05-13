@@ -151,7 +151,6 @@ const ListingClient: React.FC<ListingClientProps> = ({
             >
               <ListingReservation
                 price={listing.price}
-                unit={listing.unit}
               />
             </div>
           </div>
