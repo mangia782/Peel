@@ -4,8 +4,6 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useCallback, useMemo } from "react";
 
-//import StarRating from './ListingRating';
-
 import useCountries from "@/app/hooks/useCountries";
 import { 
   SafeListing, 
@@ -25,16 +23,6 @@ interface ListingCardProps {
   currentUser?: SafeUser | null
 };
 
-/* const App: React.FC = () => {
-  return (
-    <div>
-      <h1>Rate this Fruit!</h1>
-      <StarRating totalStars={5} />
-    </div>
-  );
-};
-*/
-
 const ListingCard: React.FC<ListingCardProps> = ({
   data,
   onAction,
@@ -44,9 +32,9 @@ const ListingCard: React.FC<ListingCardProps> = ({
   currentUser,
 }) => {
   const router = useRouter();
-  //const { getByValue } = useCountries();
+  const { getByValue } = useCountries();
 
- // const location = data.locationValue;
+  const location = getByValue(data.locationValue);
 
   const handleCancel = useCallback(
     (e: React.MouseEvent<HTMLButtonElement>) => {
