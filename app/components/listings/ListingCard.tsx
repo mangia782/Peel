@@ -15,6 +15,7 @@ import {
 import HeartButton from "../HeartButton";
 import Button from "../Button";
 import ClientOnly from "../ClientOnly";
+import Rating from "../Rating";
 
 interface ListingCardProps {
   data: SafeListing;
@@ -41,6 +42,7 @@ const ListingCard: React.FC<ListingCardProps> = ({
   const location = getByValue(data.locationValue);
   const title = data.title;
   const ratingValue = data.guestRooms;
+  const price = data.price;
 
   const handleCancel = useCallback(
     (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -53,7 +55,6 @@ const ListingCard: React.FC<ListingCardProps> = ({
     onAction?.(actionId)
   }, [disabled, onAction, actionId]);
 
-  const price = data.price;
 
   const reservationDate = useMemo(() => {
     if (!reservation) {
@@ -111,8 +112,11 @@ const ListingCard: React.FC<ListingCardProps> = ({
           <div className="font-semibold">
             $ {price}
           </div>
-          <div className="font-semibold">
-            Rated {ratingValue}/5
+          <div>
+            <Rating 
+              ratingValue={data.guestRooms}
+              size="small"
+            />
           </div>
         </div>
         {onAction && actionLabel && (

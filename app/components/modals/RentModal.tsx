@@ -51,7 +51,7 @@ const RentModal = () => {
     defaultValues: {
       category: '',
       location: null,
-      guestRooms: 3,
+      guestCount: 1,
       roomCount: 1,
       bathroomCount: 1,
       imageSrc: '',
@@ -63,7 +63,7 @@ const RentModal = () => {
 
   const location = watch('location');
   const category = watch('category');
-  const guestRooms = watch('guestRooms');
+  const guestCount = watch('guestCount');
   const roomCount = watch('roomCount');
   const bathroomCount = watch('bathroomCount');
   const imageSrc = watch('imageSrc');
@@ -182,12 +182,22 @@ const RentModal = () => {
           title="Share your rating on this fruit"
           subtitle=""
         />
-        <Counter 
-          onChange={(value) => setCustomValue('guestRooms', value)}
-          value={guestRooms}
+        {/* <Counter 
+          onChange={(value) => setCustomValue('guestCount', value)}
+          value={guestCount}
           title="Rating from 1 to 5" 
           subtitle=""
-        />
+        /> */}
+        <Input
+          id="guestRooms"
+          label="Rate from 1 to 5 stars"
+          type="number"
+          formatRating 
+          disabled={isLoading}
+          register={register}
+          errors={errors}
+          required
+        />        
       </div>
     )
   }

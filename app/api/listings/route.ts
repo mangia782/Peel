@@ -37,7 +37,7 @@ export async function POST(
       category,
       locationValue: location.value,
       price: parseInt(price, 10),
-      guestRooms,
+      guestRooms: parseInt(guestRooms, 6),
       userId: currentUser.id
     }
   });
