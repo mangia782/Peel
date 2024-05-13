@@ -58,7 +58,7 @@ const ListingReservation: React.FC<
           Rating
         </div>
         <div>
-          {}
+          RATING PLACEHOLDER
         </div>
       </div>
     </div>
