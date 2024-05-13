@@ -22,11 +22,7 @@ import ImageUpload from '../inputs/ImageUpload';
 import Input from '../inputs/Input';
 import Heading from '../Heading';
 
-import * as React from 'react';
-
-
-import StarRatingInput from '../StarRatingInput';
-import StarRatingDisplay from '../StarRatingDisplay';
+import StarRating from '../StarRating';
 
 enum STEPS {
   CATEGORY = 0,
@@ -39,9 +35,6 @@ enum STEPS {
 const RentModal = () => {
   const router = useRouter();
   const rentModal = useRentModal();
-
-  const [rating, setRating] = useState();
-
 
   const [isLoading, setIsLoading] = useState(false);
   const [step, setStep] = useState(STEPS.CATEGORY);
@@ -63,7 +56,6 @@ const RentModal = () => {
       price: 1,
       title: '',
       description: '',
-      rating: 2.5,
     }
   });
 
@@ -221,14 +213,7 @@ const RentModal = () => {
         <Heading
           title="Rate this fruit:"
         />
-        <StarRatingInput 
-          name="hover-feedback"
-          readOnly={false}
-        />
-        <StarRatingInput 
-          name="half-rating-read"
-          readOnly={true}
-        />
+        <StarRating />
       </div>
       </>
     )

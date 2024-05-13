@@ -20,7 +20,7 @@ const Search = () => {
       return getByValue(locationValue as string)?.label;
     }
 
-    return 'Search for a Store or Fruit';
+    return 'search for a store or fruit';
   }, [locationValue, getByValue]);
 
   return ( 
