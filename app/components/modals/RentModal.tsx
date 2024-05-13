@@ -24,10 +24,11 @@ import Heading from '../Heading';
 
 enum STEPS {
   CATEGORY = 0,
-  DESCRIPTION = 1,
-  PRICE = 2,
-  LOCATION = 3,
-  IMAGES = 4,
+  LOCATION = 1,
+  INFO = 2,
+  IMAGES = 3,
+  DESCRIPTION = 4,
+  PRICE = 5,
 }
 
 const RentModal = () => {
@@ -50,6 +51,9 @@ const RentModal = () => {
     defaultValues: {
       category: '',
       location: null,
+      guestCount: 1,
+      roomCount: 1,
+      bathroomCount: 1,
       imageSrc: '',
       price: 1,
       title: '',
@@ -59,6 +63,9 @@ const RentModal = () => {
 
   const location = watch('location');
   const category = watch('category');
+  const guestCount = watch('guestCount');
+  const roomCount = watch('roomCount');
+  const bathroomCount = watch('bathroomCount');
   const imageSrc = watch('imageSrc');
 
   const Map = useMemo(() => dynamic(() => import('../Map'), { 
@@ -83,7 +90,7 @@ const RentModal = () => {
   }
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    if (step !== STEPS.IMAGES) {
+    if (step !== STEPS.PRICE) {
       return onNext();
     }
     
@@ -124,7 +131,7 @@ const RentModal = () => {
   let bodyContent = (
     <div className="flex flex-col gap-8">
       <Heading
-        title="Which of these best describes your fruit?"
+        title="Which of these best describes your place?"
         subtitle="Pick a category"
       />
       <div 
@@ -156,8 +163,8 @@ const RentModal = () => {
     bodyContent = (
       <div className="flex flex-col gap-8">
         <Heading
-          title="Where did you find this fruit?"
-          subtitle="Help others find it!"
+          title="Where is your place located?"
+          subtitle="Help guests find you!"
         />
         <CountrySelect 
           value={location} 
@@ -168,12 +175,43 @@ const RentModal = () => {
     );
   }
 
+  if (step === STEPS.INFO) {
+    bodyContent = (
+      <div className="flex flex-col gap-8">
+        <Heading
+          title="Share some basics about your place"
+          subtitle="What amenitis do you have?"
+        />
+        <Counter 
+          onChange={(value) => setCustomValue('guestCount', value)}
+          value={guestCount}
+          title="Guests" 
+          subtitle="How many guests do you allow?"
+        />
+        <hr />
+        <Counter 
+          onChange={(value) => setCustomValue('roomCount', value)}
+          value={roomCount}
+          title="Rooms" 
+          subtitle="How many rooms do you have?"
+        />
+        <hr />
+        <Counter 
+          onChange={(value) => setCustomValue('bathroomCount', value)}
+          value={bathroomCount}
+          title="Bathrooms" 
+          subtitle="How many bathrooms do you have?"
+        />
+      </div>
+    )
+  }
+
   if (step === STEPS.IMAGES) {
     bodyContent = (
       <div className="flex flex-col gap-8">
         <Heading
-          title="Add a photo of your fruit"
-          subtitle="Show others what your fruit looks like!"
+          title="Add a photo of your place"
+          subtitle="Show guests what your place looks like!"
         />
         <ImageUpload
           onChange={(value) => setCustomValue('imageSrc', value)}
@@ -187,8 +225,8 @@ const RentModal = () => {
     bodyContent = (
       <div className="flex flex-col gap-8">
         <Heading
-          title="How would you describe your fruit?"
-          subtitle="What did you like/dislike? Short and sweet works best!"
+          title="How would you describe your place?"
+          subtitle="Short and sweet works best!"
         />
         <Input
           id="title"
@@ -216,7 +254,7 @@ const RentModal = () => {
       <div className="flex flex-col gap-8">
         <Heading
           title="Now, set your price"
-          subtitle="How much was the fruit?"
+          subtitle="How much do you charge per night?"
         />
         <Input
           id="price"
