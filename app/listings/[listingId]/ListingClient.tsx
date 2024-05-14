@@ -123,6 +123,7 @@ const ListingClient: React.FC<ListingClientProps> = ({
             title={listing.title}
             imageSrc={listing.imageSrc}
             locationValue={listing.locationValue}
+            locationAddress={listing.locationAddress}
             id={listing.id}
             currentUser={currentUser}
           />
@@ -143,6 +144,7 @@ const ListingClient: React.FC<ListingClientProps> = ({
               guestCount={listing.guestCount}
               bathroomCount={listing.bathroomCount}
               locationValue={listing.locationValue}
+              locationAddress={listing.locationAddress}
             />
             <div 
               className="
@@ -154,6 +156,7 @@ const ListingClient: React.FC<ListingClientProps> = ({
             >
               <ListingReservation
                 price={listing.price}
+                guestRooms={listing.guestRooms}
                 totalPrice={totalPrice}
                 onChangeDate={(value) => setDateRange(value)}
                 dateRange={dateRange}

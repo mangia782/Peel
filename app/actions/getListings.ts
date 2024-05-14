@@ -2,12 +2,13 @@ import prisma from "@/app/libs/prismadb";
 
 export interface IListingsParams {
   userId?: string;
-  guestCount?: number;
+  guestRooms?: number;
   roomCount?: number;
   bathroomCount?: number;
   startDate?: string;
   endDate?: string;
   locationValue?: string;
+  locationAddress?: string;
   category?: string;
 }
 
@@ -18,9 +19,10 @@ export default async function getListings(
     const {
       userId,
       roomCount, 
-      guestCount, 
+      guestRooms, 
       bathroomCount, 
       locationValue,
+      locationAddress,
       startDate,
       endDate,
       category,
@@ -36,21 +38,9 @@ export default async function getListings(
       query.category = category;
     }
 
-    if (roomCount) {
-      query.roomCount = {
-        gte: +roomCount
-      }
-    }
-
-    if (guestCount) {
-      query.guestCount = {
-        gte: +guestCount
-      }
-    }
-
-    if (bathroomCount) {
-      query.bathroomCount = {
-        gte: +bathroomCount
+    if (guestRooms) {
+      query.guestRooms = {
+        gte: +guestRooms
       }
     }
 
@@ -58,24 +48,10 @@ export default async function getListings(
       query.locationValue = locationValue;
     }
 
-    if (startDate && endDate) {
-      query.NOT = {
-        reservations: {
-          some: {
-            OR: [
-              {
-                endDate: { gte: startDate },
-                startDate: { lte: startDate }
-              },
-              {
-                startDate: { lte: endDate },
-                endDate: { gte: endDate }
-              }
-            ]
-          }
-        }
-      }
+    if (locationAddress) {
+      query.locationAddress = locationAddress;
     }
+
 
     const listings = await prisma.listing.findMany({
       where: query,

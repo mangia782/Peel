@@ -33,6 +33,7 @@ const EmptyState: React.FC<EmptyStateProps> = ({
         center
         title={title}
         subtitle={subtitle}
+        subtitle2=""
       />
       <div className="w-48 mt-4">
         {showReset && (

@@ -19,8 +19,7 @@ import Heading from '../Heading';
 
 enum STEPS {
   LOCATION = 0,
-  DATE = 1,
-  INFO = 2,
+  INFO = 1,
 }
 
 const SearchModal = () => {
@@ -30,19 +29,8 @@ const SearchModal = () => {
 
   const [step, setStep] = useState(STEPS.LOCATION);
 
-  const [location, setLocation] = useState<CountrySelectValue>();
-  const [guestCount, setGuestCount] = useState(1);
-  const [roomCount, setRoomCount] = useState(1);
-  const [bathroomCount, setBathroomCount] = useState(1);
-  const [dateRange, setDateRange] = useState<Range>({
-    startDate: new Date(),
-    endDate: new Date(),
-    key: 'selection'
-  });
-
-  const Map = useMemo(() => dynamic(() => import('../Map'), { 
-    ssr: false 
-  }), [location]);
+  const [locationValue, setLocationValue] = useState('');
+  const [guestRooms, setGuestCount] = useState(1);
 
   const onBack = useCallback(() => {
     setStep((value) => value - 1);
@@ -65,19 +53,9 @@ const SearchModal = () => {
 
     const updatedQuery: any = {
       ...currentQuery,
-      locationValue: location?.value,
-      guestCount,
-      roomCount,
-      bathroomCount
+      locationValue,
+      guestRooms,
     };
-
-    if (dateRange.startDate) {
-      updatedQuery.startDate = formatISO(dateRange.startDate);
-    }
-
-    if (dateRange.endDate) {
-      updatedQuery.endDate = formatISO(dateRange.endDate);
-    }
 
     const url = qs.stringifyUrl({
       url: '/',
@@ -91,14 +69,13 @@ const SearchModal = () => {
   [
     step, 
     searchModal, 
-    location, 
+
+    locationValue, 
+    guestRooms, 
+
     router, 
-    guestCount, 
-    roomCount,
-    dateRange,
     onNext,
-    bathroomCount,
-    params
+    params,
   ]);
 
   const actionLabel = useMemo(() => {
@@ -120,62 +97,46 @@ const SearchModal = () => {
   let bodyContent = (
     <div className="flex flex-col gap-8">
       <Heading
-        title="Where do you wanna go?"
-        subtitle="Find the perfect location!"
+        title="What store do you want to find?"
+        subtitle="Find the perfect produce place!"
+        subtitle2=""
       />
-      <CountrySelect 
-        value={location} 
-        onChange={(value) => 
-          setLocation(value as CountrySelectValue)} 
+      <input 
+        onChange={(value) => setLocationValue(value.target.value)}
+        value={locationValue}
+        type="text"
+        className={`
+          peer
+          w-full
+          p-4
+          pt-6 
+          font-light 
+          bg-white 
+          border-2
+          rounded-md
+          outline-none
+          transition
+          disabled:opacity-70
+          disabled:cursor-not-allowed
+        `}
       />
-      <hr />
-      <Map center={location?.latlng} />
     </div>
   )
 
-  if (step === STEPS.DATE) {
-    bodyContent = (
-      <div className="flex flex-col gap-8">
-        <Heading
-          title="When do you plan to go?"
-          subtitle="Make sure everyone is free!"
-        />
-        <Calendar
-          onChange={(value) => setDateRange(value.selection)}
-          value={dateRange}
-        />
-      </div>
-    )
-  }
 
   if (step === STEPS.INFO) {
     bodyContent = (
       <div className="flex flex-col gap-8">
         <Heading
-          title="More information"
-          subtitle="Find your perfect place!"
+          title="Search by ratings"
+          subtitle="Find the best rated fruits!"
+          subtitle2=""
         />
         <Counter 
           onChange={(value) => setGuestCount(value)}
-          value={guestCount}
-          title="Guests" 
-          subtitle="How many guests are coming?"
-        />
-        <hr />
-        <Counter 
-          onChange={(value) => setRoomCount(value)}
-          value={roomCount}
-          title="Rooms" 
-          subtitle="How many rooms do you need?"
-        />        
-        <hr />
-        <Counter 
-          onChange={(value) => {
-            setBathroomCount(value)
-          }}
-          value={bathroomCount}
-          title="Bathrooms"
-          subtitle="How many bahtrooms do you need?"
+          value={guestRooms}
+          title="Rating" 
+          subtitle="What rating would you like to search?"
         />
       </div>
     )

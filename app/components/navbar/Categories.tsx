@@ -17,11 +17,6 @@ import Container from '../Container';
 
 export const categories = [
   {
-    label: 'Store',
-    icon: TbBuildingStore  ,
-    description: 'Fruit from your favorite stores!'
-  },
-  {
     label: 'Apples',
     icon: TbApple ,
     description: 'Red, Green, Crunchy, etc...',

@@ -2,6 +2,8 @@
 
 import { Range } from "react-date-range";
 
+import Rating from "../Rating";
+
 import Button from "../Button";
 import Calendar from "../inputs/Calendar";
 
@@ -13,6 +15,7 @@ interface ListingReservationProps {
   onSubmit: () => void;
   disabled?: boolean;
   disabledDates: Date[];
+  guestRooms: number;
 }
 
 const ListingReservation: React.FC<
@@ -24,7 +27,8 @@ const ListingReservation: React.FC<
   onChangeDate,
   onSubmit,
   disabled,
-  disabledDates
+  disabledDates,
+  guestRooms,
 }) => {
   return ( 
     <div 
@@ -38,12 +42,21 @@ const ListingReservation: React.FC<
     >
       <div className="
       flex flex-col items-left gap-1 p-4">
-        <div className="text-2xl font-semibold p-4">
-          RATING PLACEHOLDER
+        <div className="text-2xl font-semibold p-8">
+          RATING:  {guestRooms}/5
+          <br />
+          <br />
+          <Rating 
+            ratingValue={guestRooms}
+            size="large"
+          />
         </div> 
         <hr />       
-        <div className="text-2xl font-light text-neutral-900 p-4">
+        <div className="flex flex-row text-2xl font-light text-neutral-900 p-6">
           $ {price}
+            <div className="font-light text-neutral-400">
+            /unit
+            </div>
         </div>
       </div>
     </div>

@@ -13,42 +13,27 @@ const Search = () => {
   const params = useSearchParams();
   const { getByValue } = useCountries();
 
-  const  locationValue = params?.get('locationValue'); 
-  const  startDate = params?.get('startDate');
-  const  endDate = params?.get('endDate');
-  const  guestCount = params?.get('guestCount');
+  const locationValue = params?.get('locationValue');
+  const locationAddress = params?.get('locationAddress');
+  const fruitName = params?.get('name');
+  const rating = params?.get('guestRooms');
 
   const locationLabel = useMemo(() => {
     if (locationValue) {
-      return getByValue(locationValue as string)?.label;
+      return locationValue;
     }
 
-    return 'Anywhere';
+    return 'Store';
   }, [locationValue, getByValue]);
 
-  const durationLabel = useMemo(() => {
-    if (startDate && endDate) {
-      const start = new Date(startDate as string);
-      const end = new Date(endDate as string);
-      let diff = differenceInDays(end, start);
-
-      if (diff === 0) {
-        diff = 1;
-      }
-
-      return `${diff} Days`;
-    }
-
-    return 'Any Week'
-  }, [startDate, endDate]);
 
   const guestLabel = useMemo(() => {
-    if (guestCount) {
-      return `${guestCount} Guests`;
+    if (rating) {
+      return `Rating of ${rating}/5 or more stars`;
     }
 
-    return 'Add Guests';
-  }, [guestCount]);
+    return 'Rating';
+  }, [rating]);
 
   return ( 
     <div
@@ -78,23 +63,10 @@ const Search = () => {
             text-sm 
             font-semibold 
             px-6
+            border-x-[1px] 
           "
         >
           {locationLabel}
-        </div>
-        <div 
-          className="
-            hidden 
-            sm:block 
-            text-sm 
-            font-semibold 
-            px-6 
-            border-x-[1px] 
-            flex-1 
-            text-center
-          "
-        >
-          {durationLabel}
         </div>
         <div 
           className="

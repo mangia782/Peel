@@ -50,7 +50,6 @@ const RentModal = () => {
   } = useForm<FieldValues>({
     defaultValues: {
       category: '',
-      location: null,
       guestCount: 1,
       roomCount: 1,
       bathroomCount: 1,
@@ -61,16 +60,15 @@ const RentModal = () => {
     }
   });
 
-  const location = watch('location');
   const category = watch('category');
   const guestCount = watch('guestCount');
   const roomCount = watch('roomCount');
   const bathroomCount = watch('bathroomCount');
   const imageSrc = watch('imageSrc');
 
-  const Map = useMemo(() => dynamic(() => import('../Map'), { 
-    ssr: false 
-  }), [location]);
+  // const Map = useMemo(() => dynamic(() => import('../Map'), { 
+  //   ssr: false 
+  // }), [location]);
 
 
   const setCustomValue = (id: string, value: any) => {
@@ -133,6 +131,7 @@ const RentModal = () => {
       <Heading
         title="Which of these best describes your fruit?"
         subtitle="Pick a category"
+        subtitle2=""
       />
       <div 
         className="
@@ -163,14 +162,28 @@ const RentModal = () => {
     bodyContent = (
       <div className="flex flex-col gap-8">
         <Heading
-          title="What store or address did you find your fruit at?"
+          title="Where did you find your fruit at?"
           subtitle="Help others find it too!"
+          subtitle2=""
         />
-        <CountrySelect 
-          value={location} 
-          onChange={(value) => setCustomValue('location', value)} 
-        />
-        <Map center={location?.latlng} />
+        <Input
+          id="locationValue"
+          label="Enter the store's name"
+          type="text"
+          disabled={isLoading}
+          register={register}
+          errors={errors}
+          required
+        />   
+        <Input
+          id="locationAddress"
+          label="Enter the store's address"
+          type="text"
+          disabled={isLoading}
+          register={register}
+          errors={errors}
+          required
+        />             
       </div>
     );
   }
@@ -181,13 +194,24 @@ const RentModal = () => {
         <Heading
           title="Share your rating on this fruit"
           subtitle=""
+          subtitle2=""
         />
-        <Counter 
+        {/* <Counter 
           onChange={(value) => setCustomValue('guestCount', value)}
           value={guestCount}
           title="Rating from 1 to 5" 
           subtitle=""
-        />
+        /> */}
+        <Input
+          id="guestRooms"
+          label="Rate from 1 to 5 stars"
+          type="number"
+          formatRating 
+          disabled={isLoading}
+          register={register}
+          errors={errors}
+          required
+        />        
       </div>
     )
   }
@@ -198,6 +222,7 @@ const RentModal = () => {
         <Heading
           title="Add a photo of your fruit"
           subtitle="Show others what your fruit looks like!"
+          subtitle2=""
         />
         <ImageUpload
           onChange={(value) => setCustomValue('imageSrc', value)}
@@ -213,6 +238,7 @@ const RentModal = () => {
         <Heading
           title="How would you describe this fruit?"
           subtitle="What did you like/dislike? Short and sweet works best!"
+          subtitle2=""
         />
         <Input
           id="title"
@@ -241,6 +267,7 @@ const RentModal = () => {
         <Heading
           title="Now, share the price"
           subtitle="How much was the fruit?"
+          subtitle2=""
         />
         <Input
           id="price"
