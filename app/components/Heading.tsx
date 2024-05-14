@@ -3,12 +3,14 @@
 interface HeadingProps {
   title: string;
   subtitle?: string;
+  subtitle2?: string;
   center?: boolean;
 }
 
 const Heading: React.FC<HeadingProps> = ({ 
   title, 
   subtitle,
+  subtitle2,
   center
 }) => {
   return ( 
@@ -18,6 +20,9 @@ const Heading: React.FC<HeadingProps> = ({
       </div>
       <div className="font-light text-neutral-500 mt-2">
         {subtitle}
+      </div>
+      <div className="font-light text-neutral-500 mt-2">
+        {subtitle2}
       </div>
     </div>
    );

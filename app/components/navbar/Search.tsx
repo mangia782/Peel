@@ -13,7 +13,8 @@ const Search = () => {
   const params = useSearchParams();
   const { getByValue } = useCountries();
 
-  const  locationValue = params?.get('locationValue'); 
+  const  locationValue = params?.get('locationValue');
+  const locationAddress = params?.get('locationAddress');
   const  startDate = params?.get('startDate');
   const  endDate = params?.get('endDate');
   const  guestRooms = params?.get('guestRooms');

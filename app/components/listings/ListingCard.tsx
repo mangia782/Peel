@@ -39,7 +39,6 @@ const ListingCard: React.FC<ListingCardProps> = ({
   const router = useRouter();
   const { getByValue } = useCountries();
 
-  const location = getByValue(data.locationValue);
   const title = data.title;
   const ratingValue = data.guestRooms;
   const price = data.price;

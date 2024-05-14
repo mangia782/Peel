@@ -123,6 +123,7 @@ const ListingClient: React.FC<ListingClientProps> = ({
             title={listing.title}
             imageSrc={listing.imageSrc}
             locationValue={listing.locationValue}
+            locationAddress={listing.locationAddress}
             id={listing.id}
             currentUser={currentUser}
           />
@@ -140,6 +141,7 @@ const ListingClient: React.FC<ListingClientProps> = ({
               category={category}
               description={listing.description}
               locationValue={listing.locationValue}
+              locationAddress={listing.locationAddress}
             />
             <div 
               className="

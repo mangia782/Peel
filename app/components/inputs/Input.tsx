@@ -25,7 +25,6 @@ const Input: React.FC<InputProps> = ({
   type = "text", 
   disabled, 
   formatPrice,
-  formatRating,
   register,
   required,
   errors,
@@ -51,6 +50,7 @@ const Input: React.FC<InputProps> = ({
           {...register(id, { required })}
           placeholder=" "
           type={type}
+          min="0"
           className={`
             peer
             w-full

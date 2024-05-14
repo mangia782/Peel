@@ -30,7 +30,7 @@ const SearchModal = () => {
 
   const [step, setStep] = useState(STEPS.LOCATION);
 
-  const [location, setLocation] = useState<CountrySelectValue>();
+  const [locationValue, setLocationValue] = useState();
   const [guestRooms, setGuestCount] = useState(1);
   const [roomCount, setRoomCount] = useState(1);
   const [bathroomCount, setBathroomCount] = useState(1);
@@ -39,10 +39,6 @@ const SearchModal = () => {
     endDate: new Date(),
     key: 'selection'
   });
-
-  const Map = useMemo(() => dynamic(() => import('../Map'), { 
-    ssr: false 
-  }), [location]);
 
   const onBack = useCallback(() => {
     setStep((value) => value - 1);
@@ -65,7 +61,7 @@ const SearchModal = () => {
 
     const updatedQuery: any = {
       ...currentQuery,
-      locationValue: location?.value,
+      locationValue,
       guestRooms,
       roomCount,
       bathroomCount
@@ -114,14 +110,15 @@ const SearchModal = () => {
       <Heading
         title="Where do you wanna go?"
         subtitle="Find the perfect location!"
+        subtitle2=""
       />
-      <CountrySelect 
+      {/* <CountrySelect 
         value={location} 
         onChange={(value) => 
           setLocation(value as CountrySelectValue)} 
       />
       <hr />
-      <Map center={location?.latlng} />
+      <Map center={location?.latlng} /> */}
     </div>
   )
 
@@ -131,6 +128,7 @@ const SearchModal = () => {
         <Heading
           title="When do you plan to go?"
           subtitle="Make sure everyone is free!"
+          subtitle2=""
         />
         <Calendar
           onChange={(value) => setDateRange(value.selection)}
@@ -146,6 +144,7 @@ const SearchModal = () => {
         <Heading
           title="More information"
           subtitle="Find your perfect place!"
+          subtitle2=""
         />
         <Counter 
           onChange={(value) => setGuestCount(value)}

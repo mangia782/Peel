@@ -66,6 +66,7 @@ const RegisterModal= () => {
       <Heading
         title="Welcome to Peel"
         subtitle="Create an account!"
+        subtitle2=""
       />
       <Input
         id="email"

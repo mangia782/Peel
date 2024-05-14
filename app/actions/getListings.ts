@@ -8,6 +8,7 @@ export interface IListingsParams {
   startDate?: string;
   endDate?: string;
   locationValue?: string;
+  locationAddress?: string;
   category?: string;
 }
 
@@ -21,6 +22,7 @@ export default async function getListings(
       guestRooms, 
       bathroomCount, 
       locationValue,
+      locationAddress,
       startDate,
       endDate,
       category,
@@ -45,6 +47,11 @@ export default async function getListings(
     if (locationValue) {
       query.locationValue = locationValue;
     }
+
+    if (locationAddress) {
+      query.locationAddress = locationAddress;
+    }
+
 
     const listings = await prisma.listing.findMany({
       where: query,

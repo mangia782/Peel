@@ -71,6 +71,7 @@ const LoginModal = () => {
       <Heading
         title="Welcome back"
         subtitle="Login to your account!"
+        subtitle2=""
       />
       <Input
         id="email"
