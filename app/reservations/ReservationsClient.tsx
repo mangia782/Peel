@@ -12,12 +12,10 @@ import Container from "@/app/components/Container";
 import ListingCard from "@/app/components/listings/ListingCard";
 
 interface ReservationsClientProps {
-  reservations: SafeReservation[],
   currentUser?: SafeUser | null,
 }
 
 const ReservationsClient: React.FC<ReservationsClientProps> = ({
-  reservations,
   currentUser
 }) => {
   const router = useRouter();
@@ -59,18 +57,6 @@ const ReservationsClient: React.FC<ReservationsClientProps> = ({
           gap-8
         "
       >
-        {reservations.map((reservation: any) => (
-          <ListingCard
-            key={reservation.id}
-            data={reservation.listing}
-            reservation={reservation}
-            actionId={reservation.id}
-            onAction={onCancel}
-            disabled={deletingId === reservation.id}
-            actionLabel="Cancel guest reservation"
-            currentUser={currentUser}
-          />
-        ))}
       </div>
     </Container>
    );

@@ -24,7 +24,7 @@ const Search = () => {
     }
 
     return 'Store';
-  }, [locationValue, getByValue]);
+  }, [locationValue]);
 
 
   const guestLabel = useMemo(() => {

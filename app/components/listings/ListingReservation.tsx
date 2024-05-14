@@ -9,12 +9,6 @@ import Calendar from "../inputs/Calendar";
 
 interface ListingReservationProps {
   price: number;
-  dateRange: Range,
-  totalPrice: number;
-  onChangeDate: (value: Range) => void;
-  onSubmit: () => void;
-  disabled?: boolean;
-  disabledDates: Date[];
   guestRooms: number;
 }
 
@@ -22,12 +16,6 @@ const ListingReservation: React.FC<
   ListingReservationProps
 > = ({
   price,
-  dateRange,
-  totalPrice,
-  onChangeDate,
-  onSubmit,
-  disabled,
-  disabledDates,
   guestRooms,
 }) => {
   return ( 
