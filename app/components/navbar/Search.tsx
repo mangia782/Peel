@@ -6,12 +6,10 @@ import { BiSearch } from 'react-icons/bi';
 import { differenceInDays } from 'date-fns';
 
 import useSearchModal from '@/app/hooks/useSearchModal';
-import useCountries from '@/app/hooks/useCountries';
 
 const Search = () => {
   const searchModal = useSearchModal();
   const params = useSearchParams();
-  const { getByValue } = useCountries();
 
   const locationValue = params?.get('locationValue');
   const locationAddress = params?.get('locationAddress');

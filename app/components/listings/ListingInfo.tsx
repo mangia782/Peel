@@ -3,7 +3,6 @@
 import dynamic from "next/dynamic";
 import { IconType } from "react-icons";
 
-import useCountries from "@/app/hooks/useCountries";
 import { SafeUser } from "@/app/types";
 
 import Avatar from "../Avatar";
@@ -32,7 +31,6 @@ const ListingInfo: React.FC<ListingInfoProps> = ({
   locationValue,
   locationAddress,
 }) => {
-  // const { getByValue } = useCountries();
 
   const coordinates = locationAddress;
 

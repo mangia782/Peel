@@ -1,13 +1,6 @@
 'use client';
 
-import axios from "axios";
-import { useCallback, useEffect, useMemo, useState } from "react";
-import { toast } from "react-hot-toast";
-import { Range } from "react-date-range";
-import { useRouter } from "next/navigation";
-import { differenceInDays, eachDayOfInterval } from 'date-fns';
-
-import useLoginModal from "@/app/hooks/useLoginModal";
+import { useMemo } from "react";
 import { SafeListing, SafeReservation, SafeUser } from "@/app/types";
 
 import Container from "@/app/components/Container";
@@ -15,12 +8,6 @@ import { categories } from "@/app/components/navbar/Categories";
 import ListingHead from "@/app/components/listings/ListingHead";
 import ListingInfo from "@/app/components/listings/ListingInfo";
 import ListingReservation from "@/app/components/listings/ListingReservation";
-
-const initialDateRange = {
-  startDate: new Date(),
-  endDate: new Date(),
-  key: 'selection'
-};
 
 interface ListingClientProps {
   reservations?: SafeReservation[];
@@ -34,15 +21,12 @@ const ListingClient: React.FC<ListingClientProps> = ({
   listing,
   currentUser
 }) => {
-  const loginModal = useLoginModal();
-  const router = useRouter();
 
   const category = useMemo(() => {
      return categories.find((items) => 
       items.label === listing.category);
   }, [listing.category]);
 
-  const [isLoading, setIsLoading] = useState(false);
 
   return ( 
     <Container>
