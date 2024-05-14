@@ -9,7 +9,6 @@ import { SafeReservation, SafeUser } from "@/app/types";
 
 import Heading from "@/app/components/Heading";
 import Container from "@/app/components/Container";
-import ListingCard from "@/app/components/listings/ListingCard";
 
 interface TripsClientProps {
   currentUser?: SafeUser | null,
@@ -19,7 +18,7 @@ const TripsClient: React.FC<TripsClientProps> = ({
   currentUser
 }) => {
   const router = useRouter();
-  const [deletingId, setDeletingId] = useState('');
+  const [, setDeletingId] = useState('');
 
   const onCancel = useCallback((id: string) => {
     setDeletingId(id);
